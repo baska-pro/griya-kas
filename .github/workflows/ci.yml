@@ -20,17 +20,22 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+
       - name: Typecheck
         run: npm run typecheck
+
       - name: Production build
         run: npm run build
+
       - name: Validate version
         shell: bash
         run: |
@@ -40,6 +45,7 @@ jobs:
           SOURCE_VERSION="$(sed -n "s/.*APP_VERSION = '\([^']*\)'.*/\1/p" version.ts)"
           test "$FILE_VERSION" = "$PACKAGE_VERSION"
           test "$FILE_VERSION" = "$SOURCE_VERSION"
+
       - name: Repository hygiene
         shell: bash
         run: |
@@ -48,3 +54,26 @@ jobs:
             echo 'Generated/private files must not be tracked.' >&2
             exit 1
           fi
+
+      - name: Verify AI removal
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -nEi '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|PANDUAN_API_KEY|geminiService)' -- ':!CHANGELOG.md' ':!RELEASE_NOTES_v1.0.0.md'; then
+            echo 'AI-related code/configuration is still present.' >&2
+            exit 1
+          fi
+
+      - name: Upload validated source package
+        if: matrix.node-version == 22
+        uses: actions/upload-artifact@v4
+        with:
+          name: griyakas-v1.0.0-source
+          path: |
+            .
+            !node_modules/**
+            !dist/**
+            !.git/**
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
