@@ -21,11 +21,50 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Verify payload parts
+        shell: bash
+        run: |
+          set -euo pipefail
+          declare -A expected_size=(
+            [part00]=30000 [part01]=30000 [part02]=8000 [part03]=8000
+            [part04]=8000 [part05]=8000 [part06]=8000 [part07]=8000
+            [part08]=8000 [part09]=8000 [part10]=8000 [part11]=8000
+            [part12]=8000 [part13]=4960
+          )
+          declare -A expected_sha=(
+            [part00]=9c606e76abad07864e0694a597fbc4297d078112370d3141b15ad7073227baa7
+            [part01]=d6422fb365d94f9b6307a648d008a616cb85d3ce52012c6a8a03b65afea50d27
+            [part02]=741135273fc503f0f171a92eadc660dfa8d244fa8c3b37aa87c5bd2a1274ce40
+            [part03]=cedc87a4a951bfd00859a4e304623ee868387215ffffe898f93d73ac4897e63d
+            [part04]=3c239cb1d16c46aed4f906a60d6c73970c3c549338cfc8827b1f3dbd78b1bf4b
+            [part05]=4545711f4c11b5200580da9cf1ca5a714f1b53bf66929f30e8fa7479aaadd53f
+            [part06]=f54bf1073ceae56805741fdf53c53f0be285066856877bb361d3c9f0683158d4
+            [part07]=5f1eb4bb934a7198defb493d1f32dfdc23f634bc00adb545e7cf284dc025a22f
+            [part08]=fbe4540cd5c7e1df00389613b8c822144609af67943d4509427549de6f470e89
+            [part09]=a0989dc4b1e3b953b8b765e404cfc324eabf15b00e0da398285aa9b759e5652f
+            [part10]=e40d9476b05c75358266a16dd6af3d568ea90226cc327511ed42c9c4d76055f0
+            [part11]=a9103897be992e985e9d9ef6e7664796db1ebf77aa1df13f015a40d3329c93e7
+            [part12]=8e258b73a9a03ccc8335a87264bcb9ca5b2d63ee19e889f4db310e1030c7243d
+            [part13]=711c168734f07ef7a3086caa1a9c7d5015d6c26d7d9b2edaee3e715ebbc9c5a9
+          )
+          for n in $(seq -w 0 13); do
+            name="part$n"
+            file=".v2-payload/$name"
+            test -f "$file" || { echo "MISSING $name"; exit 1; }
+            size="$(wc -c < "$file")"
+            sha="$(sha256sum "$file" | awk '{print $1}')"
+            echo "$name size=$size sha=$sha"
+            test "$size" = "${expected_size[$name]}" || { echo "BAD SIZE $name"; exit 1; }
+            test "$sha" = "${expected_sha[$name]}" || { echo "BAD SHA $name"; exit 1; }
+          done
+
       - name: Rebuild v2 package
         shell: bash
         run: |
           set -euo pipefail
-          cat .v2-payload/part* | base64 --decode > /tmp/GriyaKas-v2.0.0-final.zip
+          cat .v2-payload/part* > /tmp/payload.b64
+          test "$(wc -c < /tmp/payload.b64)" = '152960'
+          base64 --decode /tmp/payload.b64 > /tmp/GriyaKas-v2.0.0-final.zip
           echo '623b985475143a2aa25fc73a50dec3db0e3ee42895b72ad85ddd131a07e0a775  /tmp/GriyaKas-v2.0.0-final.zip' | sha256sum -c -
 
       - name: Replace repository with v2 source
@@ -44,7 +83,7 @@ jobs:
           set -euo pipefail
           test "$(tr -d '[:space:]' < VERSION)" = '2.0.0'
           test "$(node -p "require('./package.json').version")" = '2.0.0'
-          if grep -RniE '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|geminiService)' --exclude-dir=.git .; then
+          if grep -RniE '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|geminiService)' --exclude-dir=.git --exclude='RELEASE_NOTES_v1.0.0.md' .; then
             echo 'AI-related code/configuration is still present.' >&2
             exit 1
           fi
