@@ -1,0 +1,19 @@
+{
+  "name": "GriyaKas",
+  "short_name": "GriyaKas",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e11d48",
+  "description": "Pencatat keuangan pribadi dan keluarga yang local-first dan offline-ready.",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
