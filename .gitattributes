@@ -5,4 +5,7 @@
 *.json text eol=lf
 *.gs text eol=lf
 *.svg text eol=lf
+*.jpg binary
+*.jpeg binary
+*.png binary
 *.zip binary

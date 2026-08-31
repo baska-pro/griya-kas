@@ -14,29 +14,67 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node-version: [20, 22]
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+
       - name: Typecheck
         run: npm run typecheck
+
       - name: Production build
         run: npm run build
+
       - name: Validate version
         shell: bash
         run: |
-          test "$(tr -d '
-' < VERSION)" = "$(node -p "require('./package.json').version")"
+          set -euo pipefail
+          VERSION_FILE="$(tr -d '[:space:]' < VERSION)"
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          test "$VERSION_FILE" = "$PACKAGE_VERSION"
+          grep -Fq "$VERSION_FILE" CHANGELOG.md
+
+      - name: Validate AI removal
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RniE '(@google/genai|gemini|google[[:space:]_-]*genai|ai[[:space:]_-]*studio|GEMINI_API_KEY|geminiService)' . \
+            --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist; then
+            echo "::error::AI-related source/configuration reference detected."
+            exit 1
+          fi
+          echo "No AI-related source/configuration references detected."
+
       - name: Repository hygiene
         shell: bash
         run: |
-          if git ls-files | grep -E '(^|/)(node_modules|dist|\.vite)(/|$)|(^|/)\.env$'; then
-            echo 'Generated/private file tracked.' >&2
+          set -euo pipefail
+          if git ls-files | grep -E '(^|/)(node_modules|dist|\.vite)(/|$)|(^|/)\.env$|\.log$'; then
+            echo "::error::Generated/private file is tracked."
             exit 1
           fi
+          if grep -RniE '(SUPABASE_SERVICE_ROLE|service_role|AIza[0-9A-Za-z_-]{20,})' . \
+            --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist; then
+            echo "::error::Potential credential detected."
+            exit 1
+          fi
+
+      - name: Validate screenshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s assets/screenshots/dashboard.jpg
+          test -s assets/screenshots/transaksi.jpg
+          test -s assets/screenshots/masterdata.jpg
+          test -s assets/screenshots/catat.jpg

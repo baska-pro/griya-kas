@@ -2,6 +2,17 @@
 
 GriyaKas is a local-first personal and family finance PWA with transactions, multiple accounts, budgets, debts/receivables, savings goals, recurring bills, analytics, JSON/CSV backup, local PIN protection, and optional Google Sheets or Supabase synchronization.
 
+## Screenshots
+
+<p align="center">
+  <img src="assets/screenshots/dashboard.jpg" width="23%" alt="GriyaKas dashboard">
+  <img src="assets/screenshots/transaksi.jpg" width="23%" alt="GriyaKas transactions">
+  <img src="assets/screenshots/masterdata.jpg" width="23%" alt="GriyaKas master data">
+  <img src="assets/screenshots/catat.jpg" width="23%" alt="GriyaKas transaction form">
+</p>
+
+The screenshots show the dashboard, transaction list, master-data manager, and transaction-entry workflow. Full-resolution repository assets are stored in [`assets/screenshots/`](assets/screenshots/).
+
 ## v2 highlights
 
 - Modular React 19 + TypeScript UI.

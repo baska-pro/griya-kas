@@ -11,6 +11,24 @@
 
 **GriyaKas v2.0.0** adalah aplikasi manajemen keuangan keluarga dan pribadi berbasis browser dengan pendekatan **local-first**, PWA/offline, backup JSON/CSV, PIN lokal, analitik, perencanaan keuangan, serta sinkronisasi Google Sheets atau Supabase secara opsional.
 
+## Screenshots
+
+<p align="center">
+  <img src="assets/screenshots/dashboard.jpg" width="23%" alt="GriyaKas dashboard">
+  <img src="assets/screenshots/transaksi.jpg" width="23%" alt="GriyaKas daftar transaksi">
+  <img src="assets/screenshots/masterdata.jpg" width="23%" alt="GriyaKas master data">
+  <img src="assets/screenshots/catat.jpg" width="23%" alt="GriyaKas catat transaksi">
+</p>
+
+| Tampilan | Keterangan |
+| --- | --- |
+| Dashboard | Ringkasan kekayaan bersih, pemasukan/pengeluaran, anggota, dan rekening/dompet. |
+| Transaksi | Filter bulanan, pencarian, ringkasan arus kas, serta edit/hapus transaksi. |
+| Master Data | Kelola rekening/dompet, kategori pemasukan/pengeluaran, dan anggota keluarga. |
+| Catat Transaksi | Input pemasukan, pengeluaran, transfer, kategori, catatan, dan foto struk. |
+
+Screenshot lengkap tersimpan di [`assets/screenshots/`](assets/screenshots/).
+
 ## Yang baru di v2
 
 - Arsitektur UI modular untuk Dashboard, Transaksi, Perencanaan, Analitik, dan Pengaturan.
