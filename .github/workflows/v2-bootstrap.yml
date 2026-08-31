@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'GriyaKas-v2.0.0-final.zip'
+      - '.v2-payload/**'
       - '.github/workflows/v2-bootstrap.yml'
   workflow_dispatch:
 
@@ -21,25 +21,30 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Expand v2 package
+      - name: Rebuild v2 package
         shell: bash
         run: |
           set -euo pipefail
-          test -f GriyaKas-v2.0.0-final.zip
-          tmp="$(mktemp -d)"
-          unzip -q GriyaKas-v2.0.0-final.zip -d "$tmp"
-          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name GriyaKas-v2.0.0-final.zip -exec rm -rf {} +
-          cp -a "$tmp"/. .
-          rm -rf "$tmp" GriyaKas-v2.0.0-final.zip
-          rm -f .github/workflows/v2-bootstrap.yml
+          cat .v2-payload/part* | base64 --decode > /tmp/GriyaKas-v2.0.0-final.zip
+          echo '623b985475143a2aa25fc73a50dec3db0e3ee42895b72ad85ddd131a07e0a775  /tmp/GriyaKas-v2.0.0-final.zip' | sha256sum -c -
 
-      - name: Validate package
+      - name: Replace repository with v2 source
         shell: bash
         run: |
           set -euo pipefail
-          test "$(tr -d '[:space:]' < VERSION)" = "2.0.0"
-          test "$(node -p "require('./package.json').version")" = "2.0.0"
-          if grep -RniE '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|geminiService)' --exclude-dir=.git --exclude='RELEASE_NOTES_v1.0.0.md' .; then
+          tmp="$(mktemp -d)"
+          unzip -q /tmp/GriyaKas-v2.0.0-final.zip -d "$tmp"
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a "$tmp"/. .
+          rm -rf "$tmp"
+
+      - name: Validate v2 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(tr -d '[:space:]' < VERSION)" = '2.0.0'
+          test "$(node -p "require('./package.json').version")" = '2.0.0'
+          if grep -RniE '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|geminiService)' --exclude-dir=.git .; then
             echo 'AI-related code/configuration is still present.' >&2
             exit 1
           fi
