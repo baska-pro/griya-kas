@@ -13,21 +13,19 @@
 
 ## Screenshots
 
-<p align="center">
-  <img src="assets/screenshots/dashboard.jpg" width="23%" alt="GriyaKas dashboard">
-  <img src="assets/screenshots/transaksi.jpg" width="23%" alt="GriyaKas daftar transaksi">
-  <img src="assets/screenshots/masterdata.jpg" width="23%" alt="GriyaKas master data">
-  <img src="assets/screenshots/catat.jpg" width="23%" alt="GriyaKas catat transaksi">
-</p>
+Screenshot di bawah memakai URL gambar raw absolut agar tetap tampil konsisten di halaman repository GitHub maupun renderer Markdown eksternal. Klik gambar untuk membuka file resolusi penuh.
 
-| Tampilan | Keterangan |
+| Dashboard | Transaksi |
 | --- | --- |
-| Dashboard | Ringkasan kekayaan bersih, pemasukan/pengeluaran, anggota, dan rekening/dompet. |
-| Transaksi | Filter bulanan, pencarian, ringkasan arus kas, serta edit/hapus transaksi. |
-| Master Data | Kelola rekening/dompet, kategori pemasukan/pengeluaran, dan anggota keluarga. |
-| Catat Transaksi | Input pemasukan, pengeluaran, transfer, kategori, catatan, dan foto struk. |
+| [![GriyaKas Dashboard](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/dashboard.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/dashboard.jpg) | [![GriyaKas Transaksi](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/transaksi.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/transaksi.jpg) |
+| Ringkasan kekayaan bersih, pemasukan/pengeluaran, anggota, dan rekening/dompet. | Filter bulanan, pencarian, ringkasan arus kas, serta edit/hapus transaksi. |
 
-Screenshot lengkap tersimpan di [`assets/screenshots/`](assets/screenshots/).
+| Master Data | Catat Transaksi |
+| --- | --- |
+| [![GriyaKas Master Data](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/masterdata.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/masterdata.jpg) | [![GriyaKas Catat Transaksi](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/catat.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/catat.jpg) |
+| Kelola rekening/dompet, kategori pemasukan/pengeluaran, dan anggota keluarga. | Input pemasukan, pengeluaran, transfer, kategori, catatan, dan foto struk. |
+
+Semua screenshot tersimpan di [`assets/screenshots/`](assets/screenshots/).
 
 ## Yang baru di v2
 

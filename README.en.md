@@ -2,16 +2,23 @@
 
 GriyaKas is a local-first personal and family finance PWA with transactions, multiple accounts, budgets, debts/receivables, savings goals, recurring bills, analytics, JSON/CSV backup, local PIN protection, and optional Google Sheets or Supabase synchronization.
 
+> [README Bahasa Indonesia](README.md)
+
 ## Screenshots
 
-<p align="center">
-  <img src="assets/screenshots/dashboard.jpg" width="23%" alt="GriyaKas dashboard">
-  <img src="assets/screenshots/transaksi.jpg" width="23%" alt="GriyaKas transactions">
-  <img src="assets/screenshots/masterdata.jpg" width="23%" alt="GriyaKas master data">
-  <img src="assets/screenshots/catat.jpg" width="23%" alt="GriyaKas transaction form">
-</p>
+The screenshots below use absolute raw image URLs so they render consistently on GitHub and external Markdown renderers. Click an image to open its full-resolution repository file.
 
-The screenshots show the dashboard, transaction list, master-data manager, and transaction-entry workflow. Full-resolution repository assets are stored in [`assets/screenshots/`](assets/screenshots/).
+| Dashboard | Transactions |
+| --- | --- |
+| [![GriyaKas Dashboard](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/dashboard.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/dashboard.jpg) | [![GriyaKas Transactions](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/transaksi.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/transaksi.jpg) |
+| Net-worth, income/expense, member, and account/wallet overview. | Monthly filters, search, cash-flow summary, and transaction editing/deletion. |
+
+| Master Data | Add Transaction |
+| --- | --- |
+| [![GriyaKas Master Data](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/masterdata.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/masterdata.jpg) | [![GriyaKas Add Transaction](https://raw.githubusercontent.com/baska-pro/griya-kas/main/assets/screenshots/catat.jpg)](https://github.com/baska-pro/griya-kas/blob/main/assets/screenshots/catat.jpg) |
+| Manage accounts/wallets, income/expense categories, and family members. | Record income, expenses, transfers, categories, notes, and receipt photos. |
+
+All full-resolution screenshots are stored in [`assets/screenshots/`](assets/screenshots/).
 
 ## v2 highlights
 
