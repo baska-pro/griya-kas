@@ -1,0 +1,55 @@
+name: GriyaKas v2 Bootstrap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'GriyaKas-v2.0.0-final.zip'
+      - '.github/workflows/v2-bootstrap.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-v2:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Expand v2 package
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f GriyaKas-v2.0.0-final.zip
+          tmp="$(mktemp -d)"
+          unzip -q GriyaKas-v2.0.0-final.zip -d "$tmp"
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name GriyaKas-v2.0.0-final.zip -exec rm -rf {} +
+          cp -a "$tmp"/. .
+          rm -rf "$tmp" GriyaKas-v2.0.0-final.zip
+          rm -f .github/workflows/v2-bootstrap.yml
+
+      - name: Validate package
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(tr -d '[:space:]' < VERSION)" = "2.0.0"
+          test "$(node -p "require('./package.json').version")" = "2.0.0"
+          if grep -RniE '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|geminiService)' --exclude-dir=.git --exclude='RELEASE_NOTES_v1.0.0.md' .; then
+            echo 'AI-related code/configuration is still present.' >&2
+            exit 1
+          fi
+
+      - name: Commit v2 to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Upgrade GriyaKas to v2.0.0'
+          git push origin HEAD:main
