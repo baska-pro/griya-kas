@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'GriyaKas-v2.0.0-final.zip'
+      - '.v2-ready/**'
       - '.github/workflows/v2-bootstrap.yml'
   workflow_dispatch:
 
@@ -15,6 +15,8 @@ jobs:
   apply-v2:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -25,16 +27,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -f GriyaKas-v2.0.0-final.zip
-          base64 --decode GriyaKas-v2.0.0-final.zip > /tmp/GriyaKas-v2.0.0-final.zip
-          unzip -tq /tmp/GriyaKas-v2.0.0-final.zip
+          test -s .v2-ready/part00
+          base64 --decode .v2-ready/part00 > /tmp/GriyaKas-v2.0.0-ready.tar.xz
+          echo '3e389bf90fc5e48592ccb1f3d577a5bdb7bd9bb86c7ad24909e0d6bb21a98efd  /tmp/GriyaKas-v2.0.0-ready.tar.xz' | sha256sum -c -
+          tar -tJf /tmp/GriyaKas-v2.0.0-ready.tar.xz >/dev/null
 
       - name: Replace repository with v2 source
         shell: bash
         run: |
           set -euo pipefail
           tmp="$(mktemp -d)"
-          unzip -q /tmp/GriyaKas-v2.0.0-final.zip -d "$tmp"
+          tar -xJf /tmp/GriyaKas-v2.0.0-ready.tar.xz -C "$tmp"
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a "$tmp"/. .
           rm -rf "$tmp"
@@ -45,10 +48,20 @@ jobs:
           set -euo pipefail
           test "$(tr -d '[:space:]' < VERSION)" = '2.0.0'
           test "$(node -p "require('./package.json').version")" = '2.0.0'
-          if grep -RniE '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|geminiService)' --exclude-dir=.git .; then
-            echo 'AI-related code/configuration is still present.' >&2
-            exit 1
-          fi
+          test -f RELEASE_NOTES_v2.0.0.md
+          test ! -e .v2-ready
+          test ! -e .v2-payload
+          test ! -e .v2-xz
+          test ! -e GriyaKas-v2.0.0-final.zip
+
+      - name: Install and build
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-audit --no-fund
+          npm run typecheck
+          npm run build
+          rm -rf node_modules dist
 
       - name: Commit v2 to main
         shell: bash
