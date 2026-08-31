@@ -1,7 +1,7 @@
 
 export type TransactionType = 'INCOME' | 'EXPENSE' | 'TRANSFER';
 
-export type AccountType = 'Cash' | 'Rekening' | 'E-money' | 'Tabungan' | 'Investasi' | 'Deposito' | 'Kartu Kredit' | 'PayLater' | 'Dana Darurat' | 'Piutang' | 'Aset';
+export type AccountType = 'Cash' | 'Rekening' | 'E-money' | 'Tabungan' | 'Investasi' | 'Deposito' | 'Kartu Kredit' | 'PayLater' | 'Dana Darurat' | 'Piutang' | 'Aset' | 'LAINNYA';
 
 export type PersonType = string;
 
