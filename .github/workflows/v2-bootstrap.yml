@@ -21,19 +21,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Verify v2 package
+      - name: Decode and verify v2 package
         shell: bash
         run: |
           set -euo pipefail
           test -f GriyaKas-v2.0.0-final.zip
-          unzip -tq GriyaKas-v2.0.0-final.zip
+          base64 --decode GriyaKas-v2.0.0-final.zip > /tmp/GriyaKas-v2.0.0-final.zip
+          unzip -tq /tmp/GriyaKas-v2.0.0-final.zip
 
       - name: Replace repository with v2 source
         shell: bash
         run: |
           set -euo pipefail
           tmp="$(mktemp -d)"
-          unzip -q GriyaKas-v2.0.0-final.zip -d "$tmp"
+          unzip -q /tmp/GriyaKas-v2.0.0-final.zip -d "$tmp"
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a "$tmp"/. .
           rm -rf "$tmp"
