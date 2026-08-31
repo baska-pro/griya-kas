@@ -1,13 +1,13 @@
 {
-  "name": "GriyaKas",
+  "name": "GriyaKas - Manajemen Keuangan Mandiri",
   "short_name": "GriyaKas",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#e11d48",
-  "description": "Pencatat keuangan pribadi dan keluarga yang local-first dan offline-ready.",
+  "theme_color": "#059669",
+  "description": "Aplikasi keuangan keluarga dan pribadi local-first dengan backup serta sinkronisasi cloud opsional.",
   "icons": [
     {
       "src": "./icon.svg",

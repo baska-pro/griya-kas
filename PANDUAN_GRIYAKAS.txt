@@ -1,0 +1,27 @@
+PANDUAN SINGKAT GRIYAKAS v2.0.0
+================================
+
+GriyaKas adalah aplikasi pengelolaan keuangan keluarga/pribadi berbasis browser dengan pendekatan local-first.
+
+FITUR UTAMA
+- Pemasukan, pengeluaran, transfer antar rekening/dompet.
+- Multi rekening dan multi anggota keluarga.
+- Anggaran, hutang/piutang & cicilan, target tabungan, tagihan rutin.
+- Analitik, laporan, CSV, backup/restore JSON.
+- Lampiran foto struk dengan kompresi.
+- Tema, dark mode, sembunyikan saldo, PIN lokal.
+- PWA/offline setelah aplikasi pernah dimuat.
+- Sinkronisasi Google Sheets/Supabase bersifat opsional.
+
+UPGRADE DARI v1
+1. Buat backup JSON di GriyaKas v1.
+2. Buka v2 pada domain/origin yang sama untuk migrasi localStorage otomatis.
+3. Bila domain berubah, gunakan Restore JSON.
+4. Data v1 tidak dihapus saat migrasi normal.
+
+KEAMANAN
+- PIN disimpan sebagai hash PBKDF2, bukan PIN plaintext.
+- PIN hanya mengunci antarmuka; bukan enkripsi penuh data browser.
+- Jangan publikasikan URL Google Apps Script, export keuangan, receipt, atau konfigurasi cloud pribadi.
+
+Lisensi: BASKA-PRO PERSONAL USE LICENSE 1.0.

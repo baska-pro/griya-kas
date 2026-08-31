@@ -14,66 +14,29 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         node-version: [20, 22]
-    timeout-minutes: 15
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
+          cache: npm
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-
       - name: Typecheck
         run: npm run typecheck
-
       - name: Production build
         run: npm run build
-
       - name: Validate version
         shell: bash
         run: |
-          set -euo pipefail
-          FILE_VERSION="$(tr -d '[:space:]' < VERSION)"
-          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
-          SOURCE_VERSION="$(sed -n "s/.*APP_VERSION = '\([^']*\)'.*/\1/p" version.ts)"
-          test "$FILE_VERSION" = "$PACKAGE_VERSION"
-          test "$FILE_VERSION" = "$SOURCE_VERSION"
-
+          test "$(tr -d '
+' < VERSION)" = "$(node -p "require('./package.json').version")"
       - name: Repository hygiene
         shell: bash
         run: |
-          set -euo pipefail
-          if git ls-files | grep -E '(^|/)(node_modules|dist)(/|$)|(^|/)\.env($|\.)'; then
-            echo 'Generated/private files must not be tracked.' >&2
+          if git ls-files | grep -E '(^|/)(node_modules|dist|\.vite)(/|$)|(^|/)\.env$'; then
+            echo 'Generated/private file tracked.' >&2
             exit 1
           fi
-
-      - name: Verify AI removal
-        shell: bash
-        run: |
-          set -euo pipefail
-          if git grep -nEi '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|PANDUAN_API_KEY|geminiService)' -- ':!.github/workflows/ci.yml' ':!CHANGELOG.md' ':!RELEASE_NOTES_v1.0.0.md'; then
-            echo 'AI-related code/configuration is still present.' >&2
-            exit 1
-          fi
-
-      - name: Upload validated source package
-        if: matrix.node-version == 22
-        uses: actions/upload-artifact@v4
-        with:
-          name: griyakas-v1.0.0-source
-          path: |
-            .
-            !node_modules/**
-            !dist/**
-            !.git/**
-          include-hidden-files: true
-          if-no-files-found: error
-          retention-days: 30

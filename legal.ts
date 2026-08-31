@@ -1,30 +1,56 @@
 export const LEGAL_CONTENT = {
   PRIVACY: {
     title: "Kebijakan Privasi",
-    date: "Versi 1.0.0",
+    date: "Update Terakhir: Agustus 2026",
     sections: [
-      { heading: "1. Prinsip Local-First", content: "GriyaKas menyimpan data transaksi, pengaturan, master data, dan foto bukti secara lokal di browser perangkat Anda. Versi ini tidak memiliki server database aplikasi untuk menerima data keuangan Anda." },
-      { heading: "2. Penyimpanan Data", content: "Data menggunakan penyimpanan browser (LocalStorage). GriyaKas tidak mengenkripsi isi transaksi secara terpisah. Keamanan data tetap bergantung pada keamanan perangkat, browser, dan akun sistem operasi yang Anda gunakan." },
-      { heading: "3. Foto Bukti", content: "Foto yang dipilih dikompresi di perangkat sebelum disimpan sebagai bagian dari data lokal. Jangan menyimpan foto yang berisi informasi sensitif jika perangkat digunakan bersama." },
-      { heading: "4. Backup", content: "Backup JSON dan CSV dibuat langsung di perangkat. Simpan file backup di lokasi yang aman dan lakukan backup berkala sebelum membersihkan data browser atau mengganti perangkat." }
+      {
+        heading: "1. Komitmen Privasi & Kedaulatan Data",
+        content: "GriyaKas dibangun dengan filosofi 'Local-First & User-Owned'. Semua data keuangan, nominal uang, mutasi rekening, dan foto bukti transaksi Anda 100% adalah milik Anda pribadi."
+      },
+      {
+        heading: "2. Penyimpanan Lokal di Perangkat",
+        content: "Secara default, data Anda disimpan langsung di memori browser / perangkat HP Anda (LocalStorage). Tidak ada pelacakan rahasia, tidak ada server pihak ketiga tersembunyi, dan tidak ada data yang dijual."
+      },
+      {
+        heading: "3. Sinkronisasi Database Mandiri (BYOD)",
+        content: "Fitur sinkronisasi cloud menggunakan konsep Bring Your Own Database (BYOD). Anda menghubungkan aplikasi secara langsung ke Google Spreadsheet pribadi Anda via Google Apps Script atau database Supabase pribadi Anda menggunakan kunci API Anda sendiri."
+      },
+      {
+        heading: "4. Penggunaan Izin Perangkat",
+        content: "Aplikasi hanya meminta izin kamera/galeri saat Anda ingin mengambil foto struk atau nota pembayaran sebagai lampiran transaksi secara sukarela."
+      }
     ]
   },
   TERMS: {
     title: "Syarat & Ketentuan",
-    date: "Versi 1.0.0",
+    date: "Berlaku Efektif: Agustus 2026",
     sections: [
-      { heading: "1. Penggunaan", content: "GriyaKas ditujukan sebagai alat bantu pencatatan keuangan pribadi atau keluarga. Pengguna bertanggung jawab atas data dan keputusan yang dibuat berdasarkan catatan di aplikasi." },
-      { heading: "2. Keakuratan Data", content: "Saldo, grafik, rekap, anggaran, hutang/piutang, dan target tabungan dihitung dari data yang Anda masukkan. Pastikan transaksi dicatat dengan benar dan lakukan pemeriksaan berkala." },
-      { heading: "3. Lisensi", content: "Kode sumber dan distribusi aplikasi mengikuti lisensi yang tercantum pada file LICENSE repository GriyaKas." }
+      {
+        heading: "1. Lisensi Penggunaan",
+        content: "GriyaKas memberikan kebebasan penuh untuk menggunakan aplikasi ini demi keperluan pencatatan dan pengelolaan keuangan pribadi, rumah tangga, keluarga, maupun usaha mikro tanpa biaya tersembunyi."
+      },
+      {
+        heading: "2. Cadangan & Keamanan Data",
+        content: "Karena aplikasi ini berorientasi privasi mandiri, Anda disarankan untuk melakukan Ekspor Backup JSON secara berkala atau mengaktifkan fitur Cloud Sync ke Google Spreadsheet / Supabase agar data Anda tetap aman saat berganti perangkat."
+      },
+      {
+        heading: "3. Tanggung Jawab Pengguna",
+        content: "Kerahasiaan data di perangkat Anda dilindungi dengan fitur PIN Keamanan dan mode privasi. Pastikan perangkat Anda terkunci dengan baik saat tidak digunakan."
+      }
     ]
   },
   DISCLAIMER: {
-    title: "Disclaimer (Penafian)",
-    date: "Versi 1.0.0",
+    title: "Penafian (Disclaimer)",
+    date: "Harap Dibaca Dengan Seksama",
     sections: [
-      { heading: "1. Bukan Nasihat Keuangan", content: "GriyaKas adalah alat pencatatan dan visualisasi data. Informasi yang ditampilkan bukan nasihat keuangan, investasi, pajak, atau hukum profesional." },
-      { heading: "2. Risiko Kehilangan Data", content: "Menghapus data situs/browser, membersihkan storage aplikasi, reset perangkat, atau kerusakan perangkat dapat menghapus data lokal. Pengembang tidak dapat memulihkan data yang tidak pernah dibackup." },
-      { heading: "3. Ketersediaan", content: "Aplikasi disediakan sebagaimana adanya. Fitur browser, PWA, dan penyimpanan lokal dapat berperilaku berbeda tergantung browser serta perangkat." }
+      {
+        heading: "1. Alat Bantu Pencatatan Mandiri",
+        content: "GriyaKas adalah alat bantu pencatatan, kalkulasi, dan visualisasi arus kas. Hasil analisa grafik, rasio tabungan, dan kalkulator disajikan berdasarkan input data Anda sendiri dan bukan merupakan nasihat investasi formal."
+      },
+      {
+        heading: "2. Pembersihan Cache Browser",
+        content: "Jika Anda melakukan pembersihan total data browser ('Clear All Data') pada ponsel tanpa cadangan Cloud Sync atau file JSON, data lokal dapat terhapus. Gunakan tombol 'Backup JSON' atau 'Sync Spreadsheet' untuk kenyamanan jangka panjang."
+      }
     ]
   }
 };

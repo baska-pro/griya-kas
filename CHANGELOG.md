@@ -1,20 +1,21 @@
 # Changelog
 
-## 1.0.0 - 2026-08-31
+## 2.0.0 - 2026-08-31
 
-### Changed
-- Nama aplikasi distandardisasi menjadi **GriyaKas**.
-- PWA assets dipindahkan ke `public/` agar ikut masuk ke build Vite.
-- Tailwind dipaketkan melalui Vite, tidak lagi bergantung pada runtime CDN/import map.
-- Namespace storage baru menggunakan `griyakas_*` dengan kompatibilitas migrasi data lama.
-- Backup JSON diberi `schemaVersion: 1` untuk mempermudah migrasi ke versi berikutnya.
+### Added
+- Modular dashboard, transaction, planning, analytics, settings, and cloud sync experience.
+- Recurring bills, richer debt/payment flows, richer account metadata, and cloud sync providers.
+- PWA manifest/service worker with same-origin runtime caching.
+- Automatic GriyaKas v1 localStorage migration and v1-compatible backup normalization.
 
-### Fixed
-- Menghapus PIN admin hardcoded dan menggantinya dengan PIN buatan pengguna berbasis PBKDF2.
-- Factory reset hanya menghapus data GriyaKas, bukan seluruh LocalStorage origin.
-- Rekap anggaran bulanan sekarang juga memeriksa tahun.
-- Pembayaran hutang dan penarikan target dibatasi pada saldo/nilai yang tersedia.
-- Import backup divalidasi dan merge mencegah duplikasi ID utama.
-- CSV menggunakan escaping yang benar dan BOM UTF-8.
-- `index.html` tidak lagi memiliki entry script ganda.
-- Tipe `PersonType` disesuaikan dengan fitur anggota keluarga dinamis.
+### Security & reliability
+- Replaced plaintext v2 preview PIN storage with PBKDF2 hashing and legacy PIN migration.
+- Removed legacy generator/import-map scaffolding and unused external service metadata.
+- Removed external Tailwind CDN/import-map runtime dependencies; CSS is built locally by Vite.
+- Removed fake sample debt and recurring-bill records from production defaults.
+- Added image type/size validation before receipt compression.
+- Restore now validates/normalizes supported backup structures and restores settings.
+- Reset now clears app settings, cloud config, PIN data, and recognized legacy keys.
+
+## 1.0.0
+- First GriyaKas baseline release.

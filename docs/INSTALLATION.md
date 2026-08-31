@@ -1,16 +1,3 @@
-# Instalasi GriyaKas v1
+# Instalasi GriyaKas v2
 
-```bash
-npm install
-npm run dev
-```
-
-Build produksi:
-
-```bash
-npm run check
-```
-
-Output berada pada folder `dist/`. Konfigurasi Vite memakai `base: './'` agar hasil build lebih mudah dipasang pada subpath/static hosting.
-
-Untuk PWA/offline, service worker hanya didaftarkan pada build produksi.
+Gunakan Node.js 20.19+. Jalankan `npm install`, `npm run typecheck`, lalu `npm run build`. Untuk development gunakan `npm run dev`. Default dev server hanya bind ke `127.0.0.1`; gunakan `npm run dev -- --host 0.0.0.0` hanya bila memang ingin mengaksesnya dari LAN.

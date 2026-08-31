@@ -1,0 +1,25 @@
+PANDUAN CLOUD DATABASE GRIYAKAS v2.0.0
+======================================
+
+Cloud Sync bersifat OPSIONAL. Data lokal tetap dapat digunakan tanpa database cloud.
+Selalu buat backup JSON sebelum mengubah konfigurasi cloud.
+
+A. GOOGLE SHEETS / APPS SCRIPT
+1. Buat Google Spreadsheet khusus GriyaKas.
+2. Buka Extensions > Apps Script.
+3. Salin isi file code.gs dari repository.
+4. Deploy sebagai Web App pada akun Anda.
+5. Masukkan URL Web App ke Pengaturan > Cloud Sync GriyaKas.
+6. Perlakukan URL tersebut sebagai endpoint sensitif; jangan dipublikasikan.
+
+B. SUPABASE
+1. Buat project Supabase pribadi.
+2. Jalankan template SQL dari menu Cloud Sync / config.ts.
+3. Masukkan Project URL dan anon public key ke GriyaKas.
+4. Anon key BUKAN secret. Keamanan data harus berasal dari project yang Anda kendalikan dan RLS/policy yang tepat.
+5. Template sederhana bawaan ditujukan untuk project personal, bukan database bersama/public.
+
+CATATAN
+- Sinkronisasi 2-arah menggunakan merge berbasis ID. Tetap gunakan backup berkala.
+- Konflik edit record yang sama pada dua perangkat tetap mungkin terjadi.
+- Jangan simpan service-role key Supabase di aplikasi browser.

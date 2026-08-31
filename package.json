@@ -1,9 +1,9 @@
 {
   "name": "griyakas",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
-  "description": "Local-first personal and family finance manager.",
+  "description": "Local-first personal and family finance manager with optional Google Sheets and Supabase sync.",
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",

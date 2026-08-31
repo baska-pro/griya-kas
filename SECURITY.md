@@ -1,15 +1,16 @@
 # Security Policy
 
-GriyaKas v1 adalah aplikasi local-first dan tidak memiliki backend akun/database.
+## Data model
+GriyaKas is local-first. Financial data is stored in browser storage unless cloud sync is enabled.
 
-## Data lokal
+## PIN
+The local 4-digit PIN is PBKDF2-HMAC-SHA256 derived with a random salt. It is an application UI lock, not disk/database encryption. Anyone with control of the browser profile or device may still be able to inspect browser storage.
 
-Transaksi dan foto tersimpan di browser. LocalStorage tidak dienkripsi oleh GriyaKas. Jangan simpan password, token, private key, atau credential pada catatan transaksi.
+## Cloud sync
+- Supabase `anon` keys are designed to be public client keys. Security must come from project isolation, RLS/policies, and access configuration.
+- The bundled simple Supabase template is intended for a private personal project, not a shared public database.
+- Google Apps Script Web App URLs can grant access to the backing spreadsheet; treat the URL as sensitive and do not publish it.
 
-## PIN Admin
+## Repository hygiene
+Never commit real financial exports, receipts, database URLs, tokens, anon keys tied to private projects, private GAS URLs, or `.env` files.
 
-PIN admin hanya berfungsi sebagai penghalang akses kasual pada perangkat yang sudah terbuka. PIN diturunkan dengan PBKDF2-SHA-256 dan salt acak, tetapi bukan pengganti keamanan perangkat/browser.
-
-## Reporting
-
-Jangan mengirim data keuangan asli, file backup produksi, atau screenshot yang memuat informasi pribadi melalui public issue.

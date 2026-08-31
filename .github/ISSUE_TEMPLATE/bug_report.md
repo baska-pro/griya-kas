@@ -1,15 +1,16 @@
 ---
 name: Bug report
-about: Laporkan bug GriyaKas v1
+about: Laporkan bug GriyaKas
 title: "[Bug] "
 labels: bug
 ---
 
-## Masalah
+## Versi
 
-## Cara reproduksi
+## Browser/perangkat
 
-## Browser / perangkat
+## Langkah reproduksi
 
-## Catatan
-Jangan lampirkan backup keuangan asli atau screenshot yang memuat data pribadi.
+## Hasil yang diharapkan
+
+Jangan sertakan data keuangan, receipt, URL cloud privat, atau credential.

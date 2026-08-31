@@ -3,4 +3,6 @@
 *.tsx text eol=lf
 *.md text eol=lf
 *.json text eol=lf
+*.gs text eol=lf
 *.svg text eol=lf
+*.zip binary
