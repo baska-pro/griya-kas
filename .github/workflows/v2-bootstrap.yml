@@ -27,8 +27,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -s .v2-ready/part00
-          base64 --decode .v2-ready/part00 > /tmp/GriyaKas-v2.0.0-ready.tar.xz
+          test -s .v2-ready/chunk00
+          test -s .v2-ready/chunk08
+          cat .v2-ready/chunk* | base64 --decode > /tmp/GriyaKas-v2.0.0-ready.tar.xz
           echo '3e389bf90fc5e48592ccb1f3d577a5bdb7bd9bb86c7ad24909e0d6bb21a98efd  /tmp/GriyaKas-v2.0.0-ready.tar.xz' | sha256sum -c -
           tar -tJf /tmp/GriyaKas-v2.0.0-ready.tar.xz >/dev/null
 
