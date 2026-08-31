@@ -59,7 +59,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git grep -nEi '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|PANDUAN_API_KEY|geminiService)' -- ':!CHANGELOG.md' ':!RELEASE_NOTES_v1.0.0.md'; then
+          if git grep -nEi '(@google/genai|gemini|AI Studio|GEMINI_API_KEY|PANDUAN_API_KEY|geminiService)' -- ':!.github/workflows/ci.yml' ':!CHANGELOG.md' ':!RELEASE_NOTES_v1.0.0.md'; then
             echo 'AI-related code/configuration is still present.' >&2
             exit 1
           fi
