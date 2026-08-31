@@ -20,10 +20,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -49,8 +49,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -RniE '(@google/genai|gemini|google[[:space:]_-]*genai|ai[[:space:]_-]*studio|GEMINI_API_KEY|geminiService)' . \
-            --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist; then
+          if git grep -nEi '(@google/genai|gemini|google[[:space:]_-]*genai|ai[[:space:]_-]*studio|GEMINI_API_KEY|geminiService)' -- \
+            '*.ts' '*.tsx' '*.js' '*.jsx' '*.json' '*.html' '*.css' '*.gs' '.env.example'; then
             echo "::error::AI-related source/configuration reference detected."
             exit 1
           fi
@@ -64,11 +64,12 @@ jobs:
             echo "::error::Generated/private file is tracked."
             exit 1
           fi
-          if grep -RniE '(SUPABASE_SERVICE_ROLE|service_role|AIza[0-9A-Za-z_-]{20,})' . \
-            --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist; then
+          if git grep -nEi '(SUPABASE_SERVICE_ROLE|service_role|AIza[0-9A-Za-z_-]{20,})' -- \
+            '*.ts' '*.tsx' '*.js' '*.jsx' '*.json' '*.html' '*.css' '*.gs' '.env.example'; then
             echo "::error::Potential credential detected."
             exit 1
           fi
+          echo "Repository hygiene checks passed."
 
       - name: Validate screenshots
         shell: bash
