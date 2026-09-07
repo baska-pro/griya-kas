@@ -1,6 +1,6 @@
 <!-- repo-banner:start -->
 <p align="center">
-  <img src="./assets/banner.webp" alt="Griya Kas banner" width="100%">
+  <img src="./assets/banner.png" alt="GriyaKas Banner" width="100%">
 </p>
 <!-- repo-banner:end -->
 
