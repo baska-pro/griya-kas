@@ -1,3 +1,9 @@
+<!-- repo-banner:start -->
+<p align="center">
+  <img src="./assets/banner.webp" alt="Griya Kas banner" width="100%">
+</p>
+<!-- repo-banner:end -->
+
 # GriyaKas v2.0.0
 
 GriyaKas is a local-first personal and family finance PWA with transactions, multiple accounts, budgets, debts/receivables, savings goals, recurring bills, analytics, JSON/CSV backup, local PIN protection, and optional Google Sheets or Supabase synchronization.

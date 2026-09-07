@@ -1,3 +1,9 @@
+<!-- repo-banner:start -->
+<p align="center">
+  <img src="./assets/banner.webp" alt="Griya Kas banner" width="100%">
+</p>
+<!-- repo-banner:end -->
+
 # GriyaKas
 
 [![CI](https://github.com/baska-pro/griya-kas/actions/workflows/ci.yml/badge.svg)](https://github.com/baska-pro/griya-kas/actions/workflows/ci.yml)
